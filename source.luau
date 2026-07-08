@@ -2227,8 +2227,8 @@ function library:keybind(options)
 
             cfg.active = __cached
             cfg.callback(__cached)
-        elseif tostring(input):find("Enum") then
-            input = input.Name == "Escape" and "..." or input
+        elseif tostring(input):find("Enum") or input == "..." then
+            input = (tostring(input):find("Enum") and input.Name == "Escape") and "..." or input
 
             cfg.key = input or "..."
 
@@ -2288,7 +2288,7 @@ function library:keybind(options)
             end
 
             local selected_key = input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode or input.UserInputType
-            if selected_key ~= Enum.UserInputType.MouseMovement then
+            if selected_key ~= Enum.UserInputType.MouseMovement and selected_key ~= Enum.UserInputType.MouseButton1 then
                 cfg.set(selected_key)
                 cfg.binding:Disconnect()
                 cfg.binding = nil
