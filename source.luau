@@ -57,7 +57,7 @@ local remove = table.remove
 local concat = table.concat
 
 getgenv().library = {
-    directory = 'priv9',
+    directory = 'gv0sq2x', --> change this
     folders = {
         '/fonts',
         '/configs',
