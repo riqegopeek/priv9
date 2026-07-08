@@ -57,7 +57,7 @@ local remove = table.remove
 local concat = table.concat
 
 getgenv().library = {
-    directory = 'gv0sq2x', --> change this
+    directory = 'priv9',
     folders = {
         '/fonts',
         '/configs',
@@ -2411,18 +2411,18 @@ end
 
 function library:init_config(window)
     local textbox;
-    local main = window:tab({name = 'Configs'})
-    local section = main:column({}):section({name = 'Settings', size = 1, default = true})
-    config_holder = section:dropdown({name = 'Configs', options = {'Report', 'This', 'Error', 'To', 'Finobe'}, callback = function(option) if textbox then textbox.set(option) end end, flag = 'config_name_list'}); library:update_config_list()
-    textbox = section:textbox({name = 'Config name:', flag = 'config_name_text'})
-    section:button({name = 'Save', callback = function() writefile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg', library:get_config()) library:update_config_list() end})
-    section:button({name = 'Load', callback = function() library:load_config(readfile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg'))  library:update_config_list() end})
-    section:button({name = 'Delete', callback = function() delfile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg')  library:update_config_list() end})
+    local main = window:tab({name = 'configs'})
+    local section = main:column({}):section({name = 'settings', size = 1, default = true})
+    config_holder = section:dropdown({name = 'configs', options = {'report', 'this', 'error', 'to', 'finobe'}, callback = function(option) if textbox then textbox.set(option) end end, flag = 'config_name_list'}); library:update_config_list()
+    textbox = section:textbox({name = 'config name:', flag = 'config_name_text'})
+    section:button({name = 'save', callback = function() writefile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg', library:get_config()) library:update_config_list() end})
+    section:button({name = 'load', callback = function() library:load_config(readfile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg'))  library:update_config_list() end})
+    section:button({name = 'delete', callback = function() delfile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg')  library:update_config_list() end})
 
-    local section = main:column({}):section({name = 'Other', size = 1, default = true})
-    section:keybind({name = 'Menu bind', callback = function(bool) window.toggle_menu(bool) end, default = true})
+    local section = main:column({}):section({name = 'other', size = 1, default = true})
+    section:keybind({name = 'menu bind', callback = function(bool) window.toggle_menu(bool) end, default = true})
 
-    section:colorpicker({name = 'Gradient 1', callback = function(color)
+    section:colorpicker({name = 'gradient 1', callback = function(color)
             library:update_theme('1', color)
 
             library.gradient.Color = rgbseq{
@@ -2438,7 +2438,7 @@ function library:init_config(window)
             };
     end, color = themes.preset['1']})
 
-    section:colorpicker({name = 'Gradient 2', callback = function(color)
+    section:colorpicker({name = 'gradient 2', callback = function(color)
             library:update_theme('2', color)
 
             library.gradient.Color = rgbseq{
@@ -2454,7 +2454,7 @@ function library:init_config(window)
             };
     end, color = themes.preset['2']})
 
-    section:colorpicker({name = 'Gradient 3', callback = function(color)
+    section:colorpicker({name = 'gradient 3', callback = function(color)
             library:update_theme('3', color)
 
             library.gradient.Color = rgbseq{
