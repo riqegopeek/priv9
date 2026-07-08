@@ -75,6 +75,8 @@ getgenv().library = {
     gui;
 }
 
+library.Options = library.flags
+
 local themes = {
     preset = {
         outline = rgb(10, 10, 10),
@@ -1508,25 +1510,41 @@ function library:dropdown(options)
 
     function cfg.set(value)
         local selected = {}
-        local isTable = type(value) == 'table'
-
+        
         if value == nil then
             return
         end
 
-        for _, option in next, cfg.option_instances do
-            if option.Text == value or (isTable and find(value, option.Text)) then
-                insert(selected, option.Text)
-                cfg.multi_items = selected
-                option.TextColor3 = rgb(255, 255, 255)
-            else
-                option.TextColor3 = rgb(170, 170, 170)
+        if cfg.multi then
+            local isTable = type(value) == 'table'
+            local search_list = isTable and value or {value}
+
+            for _, option in next, cfg.option_instances do
+                if find(search_list, option.Text) then
+                    insert(selected, option.Text)
+                    option.TextColor3 = rgb(255, 255, 255)
+                else
+                    option.TextColor3 = rgb(170, 170, 170)
+                end
             end
+
+            cfg.multi_items = selected
+            text.Text = #selected > 0 and concat(selected, ', ') or 'None'
+            flags[cfg.flag] = selected
+        else
+            local option_text = type(value) == 'table' and value[1] or value
+            for _, option in next, cfg.option_instances do
+                if option.Text == option_text then
+                    insert(selected, option.Text)
+                    option.TextColor3 = rgb(255, 255, 255)
+                else
+                    option.TextColor3 = rgb(170, 170, 170)
+                end
+            end
+
+            text.Text = selected[1] or 'None'
+            flags[cfg.flag] = selected[1]
         end
-
-        text.Text = if isTable then concat(selected, ', ') else selected[1]
-
-        flags[cfg.flag] = if isTable then selected else selected[1]
 
         cfg.callback(flags[cfg.flag])
     end
@@ -1589,6 +1607,11 @@ function library:dropdown(options)
     end)
 
     return setmetatable(cfg, library)
+end
+
+function library:multidropdown(options)
+    options.multi = true
+    return self:dropdown(options)
 end
 
 function library:colorpicker(options)
