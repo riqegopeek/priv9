@@ -2280,18 +2280,23 @@ function library:keybind(options)
         text.Text = "..."
 
         cfg.binding = library:connection(uis.InputBegan, function(input, game_event)
+            local binding = cfg.binding
+            if not binding then
+                return
+            end
+
             if input.KeyCode == Enum.KeyCode.Escape then
                 cfg.set("...")
-                cfg.binding:Disconnect()
                 cfg.binding = nil
+                binding:Disconnect()
                 return
             end
 
             local selected_key = input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode or input.UserInputType
             if selected_key ~= Enum.UserInputType.MouseMovement and selected_key ~= Enum.UserInputType.MouseButton1 then
                 cfg.set(selected_key)
-                cfg.binding:Disconnect()
                 cfg.binding = nil
+                binding:Disconnect()
             end
         end)
     end)
@@ -2303,6 +2308,10 @@ function library:keybind(options)
     end)
 
     library:connection(uis.InputBegan, function(input, game_event)
+        if cfg.binding then
+            return
+        end
+
         if not uis:GetFocusedTextBox() then
             local selected_key = input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode or input.UserInputType
             if selected_key == cfg.key then
@@ -2317,6 +2326,10 @@ function library:keybind(options)
     end)
 
     library:connection(uis.InputEnded, function(input, game_event)
+        if cfg.binding then
+            return
+        end
+
         if uis:GetFocusedTextBox() then
             return
         end
