@@ -2083,15 +2083,16 @@ function library:keybind(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(1, 0, 0, 16);
         BorderSizePixel = 0;
+        AutomaticSize = Enum.AutomaticSize.Y;
         BackgroundColor3 = rgb(255, 255, 255)
     });
 
     local keybind_holder = library:create('TextButton', {
-        AnchorPoint = vec2(1, 0);
+        AnchorPoint = vec2(1, 0.5);
         AutoButtonColor = false;
         Text = '';
         Parent = keybind;
-        Position = dim2(1, 0, 0, 0);
+        Position = dim2(1, 0, 0.5, 0);
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(0.5, 0, 0, 16);
         BorderSizePixel = 0;
@@ -2130,12 +2131,14 @@ function library:keybind(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = keybind;
-        Size = dim2(0.5, -5, 1, 0);
-        Position = dim2(0, 1, 0, 0);
+        Size = dim2(0.5, -5, 0, 0);
+        Position = dim2(0, 1, 0.5, 0);
+        AnchorPoint = vec2(0, 0.5);
         BackgroundTransparency = 1;
         TextXAlignment = Enum.TextXAlignment.Left;
         BorderSizePixel = 0;
-        TextTruncate = Enum.TextTruncate.AtEnd;
+        TextWrapped = true;
+        AutomaticSize = Enum.AutomaticSize.Y;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
