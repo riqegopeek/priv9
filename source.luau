@@ -1022,12 +1022,12 @@ function library:toggle(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = toggle;
-        Size = dim2(1, 0, 1, 0);
+        Size = dim2(1, -17, 1, 0);
         Position = dim2(0, 1, 0, -1);
         BackgroundTransparency = 1;
         TextXAlignment = Enum.TextXAlignment.Left;
         BorderSizePixel = 0;
-        AutomaticSize = Enum.AutomaticSize.X;
+        TextTruncate = Enum.TextTruncate.AtEnd;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
@@ -1396,7 +1396,8 @@ function library:dropdown(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(0.5, 0, 0, 16);
         BorderSizePixel = 0;
-        BackgroundColor3 = themes.preset[tostring(self.count)]
+        BackgroundColor3 = themes.preset[tostring(self.count)];
+        ClipsDescendants = true;
     }); library:apply_theme(dropdown_holder, tostring(self.count), 'BackgroundColor3')
 
     local inline = library:create('Frame', {
@@ -1405,7 +1406,8 @@ function library:dropdown(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(1, -2, 1, -2);
         BorderSizePixel = 0;
-        BackgroundColor3 = rgb(35, 35, 35)
+        BackgroundColor3 = rgb(35, 35, 35);
+        ClipsDescendants = true;
     });
 
     local text = library:create('TextLabel', {
@@ -1414,11 +1416,11 @@ function library:dropdown(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = inline;
-        Size = dim2(1, 0, 1, 0);
+        Size = dim2(1, -4, 1, 0);
         BackgroundTransparency = 1;
-        Position = dim2(0, 0, 0, 1);
+        Position = dim2(0, 2, 0, 1);
         BorderSizePixel = 0;
-        AutomaticSize = Enum.AutomaticSize.X;
+        TextTruncate = Enum.TextTruncate.AtEnd;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
@@ -1429,12 +1431,12 @@ function library:dropdown(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = dropdown;
-        Size = dim2(1, 0, 1, 0);
+        Size = dim2(0.5, -5, 1, 0);
         Position = dim2(0, 1, 0, 0);
         BackgroundTransparency = 1;
         TextXAlignment = Enum.TextXAlignment.Left;
         BorderSizePixel = 0;
-        AutomaticSize = Enum.AutomaticSize.X;
+        TextTruncate = Enum.TextTruncate.AtEnd;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
@@ -1637,12 +1639,12 @@ function library:colorpicker(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = colorpicker_element;
-        Size = dim2(1, 0, 1, 0);
+        Size = dim2(1, -35, 1, 0);
         Position = dim2(0, 1, 0, 0);
         BackgroundTransparency = 1;
         TextXAlignment = Enum.TextXAlignment.Left;
         BorderSizePixel = 0;
-        AutomaticSize = Enum.AutomaticSize.X;
+        TextTruncate = Enum.TextTruncate.AtEnd;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
@@ -1996,7 +1998,8 @@ function library:textbox(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(1, 0, 0, 16);
         BorderSizePixel = 0;
-        BackgroundColor3 = themes.preset[tostring(self.count)]
+        BackgroundColor3 = themes.preset[tostring(self.count)];
+        ClipsDescendants = true;
     }); library:apply_theme(frame, tostring(self.count), 'BackgroundColor3')
 
     local frame_inline = library:create('Frame', {
@@ -2005,7 +2008,8 @@ function library:textbox(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(1, -2, 1, -2);
         BorderSizePixel = 0;
-        BackgroundColor3 = themes.preset.inline
+        BackgroundColor3 = themes.preset.inline;
+        ClipsDescendants = true;
     }); library:apply_theme(frame_inline, 'inline', 'BackgroundColor3')
 
     local input = library:create('TextBox', {
@@ -2025,6 +2029,7 @@ function library:textbox(options)
         Position = dim2(0, 6, 0, 0),
         BorderSizePixel = 0,
         PlaceholderColor3 = rgb(170, 170, 170),
+        PlaceholderText = cfg.placeholder,
     })
 
     function cfg.set(text)
@@ -2090,7 +2095,8 @@ function library:keybind(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(0.5, 0, 0, 16);
         BorderSizePixel = 0;
-        BackgroundColor3 = themes.preset[tostring(self.count)]
+        BackgroundColor3 = themes.preset[tostring(self.count)];
+        ClipsDescendants = true;
     }); library:apply_theme(keybind_holder, tostring(self.count), 'BackgroundColor3')
 
     local inline = library:create('Frame', {
@@ -2099,7 +2105,8 @@ function library:keybind(options)
         BorderColor3 = rgb(0, 0, 0);
         Size = dim2(1, -2, 1, -2);
         BorderSizePixel = 0;
-        BackgroundColor3 = rgb(35, 35, 35)
+        BackgroundColor3 = rgb(35, 35, 35);
+        ClipsDescendants = true;
     });
 
     local text = library:create('TextLabel', {
@@ -2108,11 +2115,11 @@ function library:keybind(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = inline;
-        Size = dim2(1, 0, 1, 0);
+        Size = dim2(1, -4, 1, 0);
         BackgroundTransparency = 1;
-        Position = dim2(0, 0, 0, -1);
+        Position = dim2(0, 2, 0, -1);
         BorderSizePixel = 0;
-        AutomaticSize = Enum.AutomaticSize.X;
+        TextTruncate = Enum.TextTruncate.AtEnd;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
@@ -2123,12 +2130,12 @@ function library:keybind(options)
         BorderColor3 = rgb(0, 0, 0);
         Text = cfg.name;
         Parent = keybind;
-        Size = dim2(1, 0, 1, 0);
+        Size = dim2(0.5, -5, 1, 0);
         Position = dim2(0, 1, 0, 0);
         BackgroundTransparency = 1;
         TextXAlignment = Enum.TextXAlignment.Left;
         BorderSizePixel = 0;
-        AutomaticSize = Enum.AutomaticSize.X;
+        TextTruncate = Enum.TextTruncate.AtEnd;
         TextSize = 12;
         BackgroundColor3 = rgb(255, 255, 255)
     });
