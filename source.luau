@@ -2049,6 +2049,12 @@ function library:textbox(options)
 end
 
 function library:keybind(options)
+    local mode = options.mode
+    if type(mode) == 'string' then
+        mode = mode:sub(1,1):upper() .. mode:sub(2):lower()
+    end
+    assert(mode == 'Hold' or mode == 'Toggle' or mode == 'Always', 'keybind mode must be specified and be one of: Hold, Toggle, Always')
+
     local cfg = {
         flag = options.flag or options.name or 'Flag',
         callback = options.callback or function() end,
@@ -2058,7 +2064,7 @@ function library:keybind(options)
         ignore_key = options.ignore or false,
 
         key = options.key or nil,
-        mode = options.mode or 'toggle',
+        mode = mode,
         active = options.default or false,
 
         hold_instances = {},
@@ -2233,10 +2239,11 @@ function library:keybind(options)
             cfg.key = input or '...'
 
             cfg.callback(cfg.active or false)
-        elseif find({'Toggle', 'Hold', 'Always'}, input) then
-            cfg.set_mode(input)
+        elseif type(input) == 'string' and find({'toggle', 'hold', 'always'}, input:lower()) then
+            local normalized_mode = input:sub(1,1):upper() .. input:sub(2):lower()
+            cfg.set_mode(normalized_mode)
 
-            if input == 'Always' then
+            if normalized_mode == 'Always' then
                 cfg.active = true
             end
 
@@ -2247,8 +2254,12 @@ function library:keybind(options)
             input.key = input.key == Enum.KeyCode.Escape and '...' or input.key
             cfg.key = input.key or '...'
 
-            cfg.mode = input.mode or 'Toggle'
-            cfg.set_mode(input.mode)
+            local mode = input.mode or 'Toggle'
+            if type(mode) == 'string' then
+                mode = mode:sub(1,1):upper() .. mode:sub(2):lower()
+            end
+            cfg.mode = mode
+            cfg.set_mode(mode)
 
             if input.active ~= nil then
                 cfg.active = input.active
@@ -2420,7 +2431,7 @@ function library:init_config(window)
     section:button({name = 'delete', callback = function() delfile(library.directory .. '/configs/' .. flags['config_name_text'] .. '.cfg')  library:update_config_list() end})
 
     local section = main:column({}):section({name = 'other', size = 1, default = true})
-    section:keybind({name = 'menu bind', callback = function(bool) window.toggle_menu(bool) end, default = true})
+    section:keybind({name = 'menu bind', callback = function(bool) window.toggle_menu(bool) end, default = true, mode = 'Toggle'})
 
     section:colorpicker({name = 'gradient 1', callback = function(color)
             library:update_theme('1', color)
