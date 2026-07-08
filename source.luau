@@ -2303,7 +2303,7 @@ function library:keybind(options)
     end)
 
     library:connection(uis.InputBegan, function(input, game_event)
-        if not game_event then
+        if not uis:GetFocusedTextBox() then
             local selected_key = input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode or input.UserInputType
             if selected_key == cfg.key then
                 if cfg.mode == "Toggle" then
@@ -2317,7 +2317,7 @@ function library:keybind(options)
     end)
 
     library:connection(uis.InputEnded, function(input, game_event)
-        if game_event then
+        if uis:GetFocusedTextBox() then
             return
         end
 
