@@ -57,7 +57,7 @@ local remove = table.remove
 local concat = table.concat
 
 getgenv().library = {
-    directory = 'priv9',
+    directory = 'gv0sq2x', --> change this nigga!!!!
     folders = {
         '/fonts',
         '/configs',
@@ -868,7 +868,7 @@ function library:watermark(options)
     return setmetatable(cfg, library)
 end
 
-local watermark = library:watermark({name = 'priv9 - 100 fps - 100 ping'})
+local watermark = library:watermark({name = getgenv().library.directory .. ' - 100 fps - 100 ping'})
 local fps = 0
 local watermark_delay = tick()
 
@@ -878,7 +878,7 @@ run.RenderStepped:Connect(function()
     if tick() - watermark_delay > 1 then
         watermark_delay = tick()
         local ping = math.floor(stats.PerformanceStats.Ping:GetValue()) .. 'ms'
-        watermark.update_text(string.format('priv9 - fps: %s - ping: %s', fps, ping))
+        watermark.update_text(string.format(getgenv().library.directory .. ' - fps: %s - ping: %s', fps, ping))
         fps = 0
     end
 end)
